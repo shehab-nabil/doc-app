@@ -79,6 +79,7 @@ class AppTextFormField extends StatelessWidget {
       validator: (value) {
         return validator(value);
       },
+      cursorColor: ColorsManager.mainBlue,
     );
   }
 }

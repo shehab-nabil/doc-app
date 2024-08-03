@@ -1,9 +1,14 @@
 import 'package:doctor_appointment_app/core/helper/spacing.dart';
 import 'package:doctor_appointment_app/core/themes/styles.dart';
 import 'package:doctor_appointment_app/core/widgets/app_text_button.dart';
+import 'package:doctor_appointment_app/features/login/data/models/login_request_body.dart';
+import 'package:doctor_appointment_app/features/login/logic/cubit/login_cubit.dart';
 import 'package:doctor_appointment_app/features/login/ui/widgets/dont_have_account_text.dart';
+import 'package:doctor_appointment_app/features/login/ui/widgets/email_and_password_fileds.dart';
+import 'package:doctor_appointment_app/features/login/ui/widgets/login_bloc_listener.dart';
 import 'package:doctor_appointment_app/features/login/ui/widgets/terms_and_conditions_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -31,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                 verticalSpace(36),
                 Column(
                   children: [
-                    // const EmailAndPassword(),
+                    const EmailAndPasswordFields(),
                     verticalSpace(24),
                     Align(
                       alignment: AlignmentDirectional.centerEnd,
@@ -45,14 +50,14 @@ class LoginScreen extends StatelessWidget {
                       buttonText: "Login",
                       textStyle: TextStyles.font16WhiteSemiBold,
                       onPressed: () {
-                        // validateThenDoLogin(context);
+                        validateThenDoLogin(context);
                       },
                     ),
                     verticalSpace(16),
                     const TermsAndConditionsText(),
                     verticalSpace(60),
                     const DontHaveAccountText(),
-                    // const LoginBlocListener(),
+                    const LoginBlocListener(),
                   ],
                 ),
               ],
@@ -63,9 +68,11 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  // void validateThenDoLogin(BuildContext context) {
-  //   if (context.read<LoginCubit>().formKey.currentState!.validate()) {
-  //     context.read<LoginCubit>().emitLoginStates();
-  //   }
-  // }
+  void validateThenDoLogin(BuildContext context) {
+    if (context.read<LoginCubit>().formKey.currentState!.validate()) {
+      context.read<LoginCubit>().emitLoginStates(LoginRequestBody(
+          email: context.read<LoginCubit>().emailController.text,
+          password: context.read<LoginCubit>().passwordController.text));
+    }
+  }
 }

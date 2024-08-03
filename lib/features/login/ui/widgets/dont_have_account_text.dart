@@ -1,5 +1,3 @@
-import 'package:doctor_appointment_app/core/helper/extensions.dart';
-import 'package:doctor_appointment_app/core/routing/routes.dart';
 import 'package:doctor_appointment_app/core/themes/styles.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
